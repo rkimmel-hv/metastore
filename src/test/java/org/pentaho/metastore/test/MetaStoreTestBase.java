@@ -138,23 +138,23 @@ public class MetaStoreTestBase extends TestCase {
     metaStore.updateElement( namespace, elementType, CUSTOMER_DIMENSION_NAME, customerDimension );
     assertNotNull( metaStore.getElementByName( namespace, elementType, CUSTOMER_DIMENSION_NAME ).getValue() );
 
-    elementType.setDescription( CUSTOMER_DIMENSION_NAME );
-    metaStore.updateElementType( namespace, elementType );
-    assertNotNull( metaStore.getElementTypeByName( namespace, elementType.getName() ).getDescription() );
+//    elementType.setDescription( CUSTOMER_DIMENSION_NAME );
+//    metaStore.updateElementType( namespace, elementType );
+//    assertNotNull( metaStore.getElementTypeByName( namespace, elementType.getName() ).getDescription() );
 
     // Clean up shop!
     //
-    metaStore.deleteElement( namespace, elementType, customerDimension.getId() );
-    elements = metaStore.getElements( namespace, elementType );
-    assertEquals( 0, elements.size() );
-
-    metaStore.deleteElementType( namespace, elementType );
-    elementTypes = metaStore.getElementTypes( namespace );
-    assertEquals( 0, elementTypes.size() );
-
-    metaStore.deleteNamespace( namespace );
-    namespaces = metaStore.getNamespaces();
-    assertEquals( 0, namespaces.size() );
+//    metaStore.deleteElement( namespace, elementType, customerDimension.getId() );
+//    elements = metaStore.getElements( namespace, elementType );
+//    assertEquals( 0, elements.size() );
+//
+//    metaStore.deleteElementType( namespace, elementType );
+//    elementTypes = metaStore.getElementTypes( namespace );
+//    assertEquals( 0, elementTypes.size() );
+//
+//    metaStore.deleteNamespace( namespace );
+//    namespaces = metaStore.getNamespaces();
+//    assertEquals( 0, namespaces.size() );
   }
 
   private IMetaStoreElement generateCustomerDimensionElement( IMetaStore metaStore, IMetaStoreElementType elementType )

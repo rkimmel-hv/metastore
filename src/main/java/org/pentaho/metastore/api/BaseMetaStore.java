@@ -21,6 +21,10 @@ import org.pentaho.metastore.api.exceptions.MetaStoreException;
 import org.pentaho.metastore.api.security.Base64TwoWayPasswordEncoder;
 import org.pentaho.metastore.api.security.ITwoWayPasswordEncoder;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class implements common and/or default functionality between IMetaStore instances
  */
@@ -87,4 +91,20 @@ public abstract class BaseMetaStore implements IMetaStore {
     this.passwordEncoder = passwordEncoder;
   }
 
+  public Map<String, List<IMetaStoreElement>> getAllMetastoreData() throws MetaStoreException {
+    Map<String, List<IMetaStoreElement>> metastoreData = new HashMap<>();
+    List<String> namespaces = this.getNamespaces();
+    for ( String namespace
+      :namespaces ) {
+
+      List<IMetaStoreElementType> types = this.getElementTypes( namespace );
+      for ( IMetaStoreElementType type
+        :types ) {
+
+        List<IMetaStoreElement> elements = this.getElements( namespace, type );
+        metastoreData.put( namespace, elements );
+      }
+    }
+    return metastoreData;
+  }
 }

@@ -16,14 +16,18 @@
  */
 package org.pentaho.metastore.test;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.pentaho.metastore.api.IMetaStore;
+import org.pentaho.metastore.api.IMetaStoreElement;
 import org.pentaho.metastore.api.exceptions.MetaStoreException;
 import org.pentaho.metastore.persist.MetaStoreFactory;
+import org.pentaho.metastore.stores.memory.MemoryMetaStore;
 import org.pentaho.metastore.stores.xml.XmlMetaStore;
 import org.pentaho.metastore.test.testclasses.my.Level1Element;
 import org.pentaho.metastore.test.testclasses.my.Level2Element;
@@ -35,6 +39,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Rowell Belen
@@ -100,6 +105,10 @@ public class MultiLevelListTest {
     Assert.assertEquals( 2, level1ElementLoaded.getOtherElements().size() );
     Assert.assertEquals( 2, level1ElementLoaded.getLevel2Elements().size() );
     Assert.assertEquals( 3, level1ElementLoaded.getLevel2Elements().get( 0 ).getLevel3Elements().size() );
+
+    Map<String, List<IMetaStoreElement>> metastoreData = ((XmlMetaStore) this.metaStore).getAllMetastoreData();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    System.out.println( gson.toJson( metastoreData ) );
   }
 
   @Test( expected = MetaStoreException.class )

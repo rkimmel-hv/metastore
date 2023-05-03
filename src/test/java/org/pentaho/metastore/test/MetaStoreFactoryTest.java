@@ -16,6 +16,9 @@
  */
 package org.pentaho.metastore.test;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
@@ -58,7 +61,9 @@ import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class MetaStoreFactoryTest extends TestCase {
 
@@ -143,6 +148,10 @@ public class MetaStoreFactoryTest extends TestCase {
 
     assertNotNull( loadedElement );
     assertEquals( loadedElement.getStepname(), stepName );
+
+    Map<String, List<IMetaStoreElement>> metastoreData = ((MemoryMetaStore) metaStore).getAllMetastoreData();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    System.out.println( gson.toJson( metastoreData ) );
   }
 
   @Test
@@ -266,6 +275,10 @@ public class MetaStoreFactoryTest extends TestCase {
     factory.deleteElement( NAME );
     assertEquals( 0, factory.getElementNames().size() );
     assertEquals( 0, factory.getElements().size() );
+
+    Map<String, List<IMetaStoreElement>> metastoreData = ((MemoryMetaStore) metaStore).getAllMetastoreData();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    System.out.println( gson.toJson( metastoreData ) );
   }
 
   @Test

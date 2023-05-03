@@ -17,6 +17,8 @@
 
 package org.pentaho.metastore.test;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.pentaho.metastore.stores.memory.MemoryMetaStore;
 
 public class MemoryMetaStoreTest extends MetaStoreTestBase {
@@ -32,6 +34,9 @@ public class MemoryMetaStoreTest extends MetaStoreTestBase {
 
   public void test() throws Exception {
     super.testFunctionality( metaStore );
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    String metastoreDataJson = gson.toJson( metaStore.getAllMetastoreData() );
+    System.out.println( metastoreDataJson );
   }
 
   public void testParrallelRetrive() throws Exception {
